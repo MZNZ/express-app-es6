@@ -1,5 +1,6 @@
 const path = require('path');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const proxy = require('http-proxy-middleware');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const HtmlWebpackPluginConfig = new HtmlWebpackPlugin({
   template: './client/index.html',
@@ -20,12 +21,12 @@ module.exports = {
     open: true,
     watchContentBase: true,
     historyApiFallback: true,
-    // proxy: {
-    //   '/api/v1': {
-    //     target: 'http://localhost:8888',
-    //     secure: false,
-    //   },
-    // },
+    proxy: {
+      '/api/movies': {
+        target: 'http://localhost:3000',
+        secure: false,
+      },
+    },
   },
   devtool: 'source-map',
   module: {

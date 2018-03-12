@@ -4,6 +4,7 @@ import {
 import {Common} from './util/Util';
 
 const moviesInitState = {
+  httpStatusCode: null,
   movieList: [],
 };
 /**
@@ -20,7 +21,7 @@ export const movies = (state = moviesInitState, action) => {
   switch (action.type) {
     case CHANGE_MOVIELIST:
       newState = Common.getDeepCopy(payload);
-      return {...state, movieList: newState};
+      return {...state, ...newState};
     default:
       return state;
   }

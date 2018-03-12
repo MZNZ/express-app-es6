@@ -13,9 +13,11 @@ import MoviesApp from './MoviesApp';
 export const mapStateToPropsMoviesApp = (state) => {
   const {
     movieList,
+    httpStatusCode,
   } = state.movies;
   return {
     movieList,
+    httpStatusCode,
   };
 };
 
@@ -29,7 +31,26 @@ export const mapStateToPropsMoviesApp = (state) => {
 export const mapDispatchToPropsMoviesApp = (dispatch) => {
   return {
     onMovieListLoad: () => {
-      dispatch(actions.changeMovieList([{molly: 1}]));
+      const as = async () => {
+        const response = await fetch('http://localhost:3000/api/movies', {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+          }
+        });
+        const httpStatusCode = response.status;
+        if (httpStatusCode === 200) {
+          const movieList = await response.json();
+          dispatch(actions.changeMovieList({
+            movieList,
+            httpStatusCode,
+          }));
+        } else {
+          dispatch(actions.changeMovieList({httpStatusCode}));
+        }
+      };
+
+      as();
     },
   };
 };

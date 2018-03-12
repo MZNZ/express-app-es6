@@ -18,7 +18,7 @@ export const Application = ({store}) => {
     <Provider store={store}>
       <BrowserRouter>
         <div>
-          <Route path="/" component={MoviesPage} exact/>
+          <Route path="/" component={MoviesPage} />
         </div>
       </BrowserRouter>
     </Provider>
