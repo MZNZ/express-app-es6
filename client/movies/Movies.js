@@ -85,10 +85,17 @@ export const mapDispatchToPropsSearch = (dispatch) => {
   return {
     onSubmitSearch: (keyword) => {
       // TODO
+      const searchArray = keyword.split(':');
+      const searchType = searchArray[0].trim();
+      const key= searchArray[1].trim();
+
       dispatch(actions.changeSearchKeyword({
-        keyword: keyword,
-        movieList: [{"title":"After Dark in Central Park","year":1900,"director":null,"cast":null,"genre":null,"notes":null}],
+        keyword: key,
+        searchType,
       }));
+    },
+    onResetList: () => {
+      dispatch(actions.resetList());
     },
   };
 };

@@ -2,6 +2,7 @@ import {
   CHANGE_MOVIELIST,
   CHANGE_SEARCH_KEYWORD,
   CHANGE_PAGE,
+  RESET_LIST,
 } from './MoviesActions';
 import {Common} from './util/Util';
 
@@ -37,7 +38,19 @@ export const movies = (state = moviesInitState, action) => {
       };
       return {...state, ...newState};
     case CHANGE_SEARCH_KEYWORD:
-      newState = Common.getDeepCopy(payload);
+      const {keyword, searchType} = payload;
+      const movieList = state.movieList.filter((m) => {
+        if (searchType === 'title' && m.title)
+          return m.title.includes(keyword);
+        if (searchType === 'genre' && m.genre)
+          return m.genre.includes(keyword);
+      });
+
+      newState = {
+        movieList,
+        currentPage: 1,
+        numOfPages: movieList.length / state.numOfRowPerPage,
+      };
       return {...state, ...newState};
     case CHANGE_PAGE:
       const begin = (payload - 1) * state.numOfRowPerPage;
@@ -45,6 +58,14 @@ export const movies = (state = moviesInitState, action) => {
         currentPage: payload,
         movieList: state.cachedMovieList.
           slice(begin, begin + state.numOfRowPerPage),
+      };
+      return {...state, ...newState};
+    case RESET_LIST:
+      newState = {
+        movieList: state.cachedMovieList.slice(0, state.numOfRowPerPage),
+        currentPage: 1,
+        numOfPages:
+          Math.ceil(state.cachedMovieList.length / state.numOfRowPerPage),
       };
       return {...state, ...newState};
     default:

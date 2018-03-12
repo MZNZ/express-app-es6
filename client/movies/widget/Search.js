@@ -16,8 +16,8 @@ class Search extends React.Component{
 
   handleSubmit(event) {
     event.preventDefault();
-    this.props.onSubmitSearch(this.state.value);
-    this.setState({value:''});
+    const searchString = this.state.value;
+    if (searchString.length) this.props.onSubmitSearch(this.state.value);
   }
 
   render() {
@@ -33,10 +33,17 @@ class Search extends React.Component{
       </form>
     );
   }
+
+  componentWillUpdate(nextProps, nextState) {
+    if (!nextState.value.length) {
+      this.props.onResetList();
+    }
+  }
 }
 
 Search.propTypes = {
   onSubmitSearch: PropTypes.func.isRequired,
+  onResetList: PropTypes.func.isRequired,
 };
 
 export default Search;
