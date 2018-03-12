@@ -1,0 +1,29 @@
+# Common
+*~
+
+# Project
+/dist/
+package-lock.json
+
+# vscode
+.vscode
+
+## Optional eslint cache
+.eslintcache
+
+## Dependency directories
+node_modules/
+
+## Logs
+log
+logs
+*.log
+npm-debug.log*
+
+# OSX
+._*
+.DS_Store
+.DS_Store?
+
+## Compiled binary addons (http://nodejs.org/api/addons.html)
+build/Release

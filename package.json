@@ -1,0 +1,62 @@
+{
+  "name": "technical-challenge",
+  "version": "1.0.0",
+  "description": "frontend engineer - technical challenge",
+  "main": "app.js",
+  "scripts": {
+    "start": "node ./server/index.js",
+    "ui": "webpack-dev-server"
+  },
+  "repository": {
+    "type": "git"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "express": "^4.15.4",
+    "babel-cli": "^6.26.0",
+    "babel-core": "^6.26.0",
+    "babel-jest": "^21.2.0",
+    "babel-loader": "^7.1.2",
+    "babel-plugin-react-intl": "^2.3.1",
+    "babel-plugin-transform-object-rest-spread": "^6.26.0",
+    "babel-polyfill": "^6.26.0",
+    "babel-preset-env": "^1.6.1",
+    "babel-preset-react": "^6.24.1",
+    "babel-preset-stage-3": "^6.24.1",
+    "css-loader": "^0.28.7",
+    "eslint": "^4.10.0",
+    "eslint-config-google": "^0.9.1",
+    "eslint-plugin-react": "^7.4.0",
+    "express-history-api-fallback": "^2.2.1",
+    "extract-text-webpack-plugin": "^3.0.2",
+    "file-loader": "^1.1.5",
+    "html-webpack-plugin": "^2.30.1",
+    "http-proxy-middleware": "^0.17.4",
+    "json-loader": "^0.5.7",
+    "less": "^2.7.3",
+    "less-loader": "^4.0.5",
+    "path": "^0.12.7",
+    "react-test-renderer": "^16.0.0",
+    "redux-promise-middleware": "^4.4.2",
+    "regenerator-runtime": "^0.11.0",
+    "style-loader": "^0.19.0",
+    "uglifyjs-webpack-plugin": "^1.0.1",
+    "url-loader": "^0.6.2",
+    "webpack": "^3.8.1",
+    "webpack-dev-server": "^2.9.3",
+    "webpack-merge": "^4.1.1"
+  },
+  "dependencies": {
+    "react": "^16.2.0",
+    "react-dom": "^16.2.0",
+    "react-redux": "^5.0.6",
+    "react-router-dom": "^4.2.2",
+    "redux": "^3.7.2",
+    "redux-logger": "^3.0.6",
+    "redux-promise": "^0.5.3",
+    "redux-thunk": "^2.2.0",
+    "semantic-ui-css": "^2.2.12",
+    "semantic-ui-react": "^0.75.1"
+  }
+}
