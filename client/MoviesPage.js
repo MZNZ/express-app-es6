@@ -2,6 +2,7 @@ import React from 'react';
 import {
   MoviesAppContainer,
   SearchContainer,
+  PaginationContainer,
 } from './movies/Movies';
 import './MoviesPage.less';
 
@@ -13,6 +14,7 @@ import './MoviesPage.less';
 const MoviesPage = () => {
   return (
     <div className="movies-page">
+      <PaginationContainer />
       <SearchContainer />
       <MoviesAppContainer />
     </div>

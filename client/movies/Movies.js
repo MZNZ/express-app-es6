@@ -3,6 +3,7 @@ import * as reducers from './MoviesReducers';
 import * as actions from './MoviesActions';
 import MoviesApp from './MoviesApp';
 import {Search} from './widget/Widget';
+import Pagination from './widget/Pagination';
 
 /**
  * Map properties to calendar app component
@@ -41,9 +42,9 @@ export const mapDispatchToPropsMoviesApp = (dispatch) => {
         });
         const httpStatusCode = response.status;
         if (httpStatusCode === 200) {
-          const movieList = await response.json();
+          const movieListData = await response.json();
           dispatch(actions.changeMovieList({
-            movieList,
+            cachedMovieList: movieListData,
             httpStatusCode,
           }));
         } else {
@@ -92,6 +93,39 @@ export const mapDispatchToPropsSearch = (dispatch) => {
   };
 };
 
+/**
+ * Map properties to calendar app component
+ *
+ * @param  {Object} state redux store host calendar state
+ * @return {Object}       object contains properties mapped to presentation
+ *                        component
+ */
+export const mapStateToPropsPagination = (state) => {
+  const {
+    currentPage,
+    numOfPages,
+  } = state.movies;
+  return {
+    currentPage,
+    numOfPages,
+  };
+};
+
+/**
+ * Map functions to calendar side bar component
+ *
+ * @param  {Function} dispatch redux store dispatch method
+ * @return {Object}            object contains properties mapped to presentation
+ *                             component
+ */
+export const mapDispatchToPropsPagination = (dispatch) => {
+  return {
+    onGoTo: (pageNumber) => {
+      dispatch(actions.changePage(pageNumber));
+    },
+  };
+};
+
 // Container components
 const MoviesAppContainer = connect(
   mapStateToPropsMoviesApp,
@@ -103,9 +137,15 @@ const SearchContainer = connect(
   mapDispatchToPropsSearch,
 )(Search);
 
+const PaginationContainer = connect(
+  mapStateToPropsPagination,
+  mapDispatchToPropsPagination,
+)(Pagination);
+
 export {
   MoviesAppContainer,
   SearchContainer,
+  PaginationContainer,
   reducers,
   actions,
 }

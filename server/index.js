@@ -12,8 +12,7 @@ app.get('/api/movies', (request, response) => {
             'Content-Type': 'application/json'
         }
     }
-    // response.sendFile(`/data/movies.json`, options)
-    response.sendFile(`/data/lessmovies.json`, options)
+    response.sendFile(`/data/movies.json`, options)
 })
 
 app.get('/', (request, response) => {
