@@ -1,5 +1,8 @@
 import React from 'react';
-import {MoviesAppContainer} from './movies/Movies';
+import {
+  MoviesAppContainer,
+  SearchContainer,
+} from './movies/Movies';
 import './MoviesPage.less';
 
 /**
@@ -10,6 +13,7 @@ import './MoviesPage.less';
 const MoviesPage = () => {
   return (
     <div className="movies-page">
+      <SearchContainer />
       <MoviesAppContainer />
     </div>
   );

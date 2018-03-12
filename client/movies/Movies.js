@@ -2,6 +2,7 @@ import {connect} from 'react-redux';
 import * as reducers from './MoviesReducers';
 import * as actions from './MoviesActions';
 import MoviesApp from './MoviesApp';
+import {Search} from './widget/Widget';
 
 /**
  * Map properties to calendar app component
@@ -49,8 +50,44 @@ export const mapDispatchToPropsMoviesApp = (dispatch) => {
           dispatch(actions.changeMovieList({httpStatusCode}));
         }
       };
-
       as();
+    },
+  };
+};
+
+/**
+ * Map properties to calendar app component
+ *
+ * @param  {Object} state redux store host calendar state
+ * @return {Object}       object contains properties mapped to presentation
+ *                        component
+ */
+export const mapStateToPropsSearch = (state) => {
+  const {
+    keyword,
+    result,
+  } = state.movies;
+  return {
+    keyword,
+    result,
+  };
+};
+
+/**
+ * Map functions to calendar side bar component
+ *
+ * @param  {Function} dispatch redux store dispatch method
+ * @return {Object}            object contains properties mapped to presentation
+ *                             component
+ */
+export const mapDispatchToPropsSearch = (dispatch) => {
+  return {
+    onSubmitSearch: (keyword) => {
+      // TODO
+      dispatch(actions.changeSearchKeyword({
+        keyword: keyword,
+        movieList: [{"title":"After Dark in Central Park","year":1900,"director":null,"cast":null,"genre":null,"notes":null}],
+      }));
     },
   };
 };
@@ -61,8 +98,14 @@ const MoviesAppContainer = connect(
   mapDispatchToPropsMoviesApp,
 )(MoviesApp);
 
+const SearchContainer = connect(
+  mapStateToPropsSearch,
+  mapDispatchToPropsSearch,
+)(Search);
+
 export {
   MoviesAppContainer,
+  SearchContainer,
   reducers,
   actions,
 }
