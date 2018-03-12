@@ -84,15 +84,7 @@ export const mapStateToPropsSearch = (state) => {
 export const mapDispatchToPropsSearch = (dispatch) => {
   return {
     onSubmitSearch: (keyword) => {
-      // TODO
-      const searchArray = keyword.split(':');
-      const searchType = searchArray[0].trim();
-      const key= searchArray[1].trim();
-
-      dispatch(actions.changeSearchKeyword({
-        keyword: key,
-        searchType,
-      }));
+      dispatch(actions.changeSearchKeyword({keyword}));
     },
     onResetList: () => {
       dispatch(actions.resetList());

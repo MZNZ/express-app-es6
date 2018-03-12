@@ -38,12 +38,14 @@ export const movies = (state = moviesInitState, action) => {
       };
       return {...state, ...newState};
     case CHANGE_SEARCH_KEYWORD:
-      const {keyword, searchType} = payload;
-      const movieList = state.movieList.filter((m) => {
-        if (searchType === 'title' && m.title)
-          return m.title.includes(keyword);
-        if (searchType === 'genre' && m.genre)
-          return m.genre.includes(keyword);
+      const {keyword} = payload;
+      const movieList = [];
+      Object.keys(keyword).forEach((key) => {
+        state.movieList.forEach((m) => {
+          if (m[key] && m[key].includes(keyword[key])) {
+            movieList.push(m);
+          }
+        });
       });
 
       newState = {

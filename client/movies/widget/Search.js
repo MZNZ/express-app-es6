@@ -1,43 +1,62 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import './Search.less';
 
 class Search extends React.Component{
   constructor(props) {
     super(props);
-    this.state = {value: ''};
+    this.state = {title: '', genre: ''};
 
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleReset = this.handleReset.bind(this);
   }
 
   handleChange(event) {
-    this.setState({value: event.target.value});
+    this.setState({[event.target.name]: event.target.value});
   }
 
   handleSubmit(event) {
     event.preventDefault();
-    const searchString = this.state.value;
-    if (searchString.length) this.props.onSubmitSearch(this.state.value);
+    const state = this.state;
+    const searchKeywords = {};
+
+    Object.keys(state).forEach((key) => {
+      if (state[key].length) {
+        searchKeywords[key] = this.state[key];
+      }
+    });
+    this.props.onSubmitSearch(searchKeywords);
+  }
+
+  handleReset(event) {
+    event.preventDefault();
+    this.setState({title: '', genre: ''});
+    this.props.onResetList();
   }
 
   render() {
     return (
       <form className="example" onSubmit={this.handleSubmit}>
-        <input type="text"
-          placeholder="Search.."
-          name="search"
-          value={this.state.value}
+        Search By Title:<input type="text"
+          className="search-input"
+          placeholder="Enter TITLE"
+          name="title"
+          value={this.state.title}
           onChange={this.handleChange}
         />
-        <input type="submit" value="Submit" />
+        <span className="search-input"><b>OR</b></span>
+        Search By Genre:<input type="text"
+          className="search-input"
+          placeholder="Enter Genre"
+          name="genre"
+          value={this.state.genre}
+          onChange={this.handleChange}
+        />
+        <input className="search-input" type="submit" value="Submit" />
+        <input className="search-input" type="submit" value="Reset" onClick={this.handleReset}/>
       </form>
     );
-  }
-
-  componentWillUpdate(nextProps, nextState) {
-    if (!nextState.value.length) {
-      this.props.onResetList();
-    }
   }
 }
 
