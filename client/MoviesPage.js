@@ -10,7 +10,6 @@ import './MoviesPage.less';
 const MoviesPage = () => {
   return (
     <div>
-      MoviesPage
       <MoviesAppContainer />
     </div>
   );
