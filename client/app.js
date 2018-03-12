@@ -5,15 +5,14 @@ import {applyMiddleware, createStore, combineReducers} from 'redux';
 import logger from 'redux-logger';
 import thunk from 'redux-thunk';
 import promise from 'redux-promise-middleware';
-// import {reducers as hostCalendarReducers} from './host/Host';
-// import {reducers as intlReducers} from './intl/Intl';
+import {reducers as moviesReducers} from './movies/Movies';
 import {Application} from './Application';
 import 'semantic-ui-css/semantic.min.css';
 
 const middleware = applyMiddleware(promise(), thunk, logger);
 
 const appReducers = {
-  // ...intlReducers,
+  ...moviesReducers,
 };
 
 const store = createStore(
