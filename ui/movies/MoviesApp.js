@@ -5,7 +5,9 @@ import {DivTable} from  './widget/Widget';
 class MoviesApp extends React.Component{
   constructor(props) {
     super(props);
-    props.onMovieListLoad();
+  }
+  componentDidMount() {
+    this.props.onMovieListLoad();
   }
   render() {
     const props = this.props;

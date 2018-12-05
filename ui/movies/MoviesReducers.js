@@ -4,7 +4,6 @@ import {
   CHANGE_PAGE,
   RESET_LIST,
 } from './MoviesActions';
-import {Common} from './util/Util';
 
 const moviesInitState = {
   httpStatusCode: null,

@@ -1,36 +1,33 @@
 const path = require('path');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
-const proxy = require('http-proxy-middleware');
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const CleanWebpackPlugin = require('clean-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const HtmlWebpackPluginConfig = new HtmlWebpackPlugin({
-  template: './client/index.html',
+  template: './ui/index.html',
   filename: 'index.html',
   inject: 'body',
 });
+const outputDirectory = 'dist';
+const devMode = process.env.NODE_ENV !== 'production';
 
 module.exports = {
-  entry: './client/app.js',
+  entry: './ui/app.js',
   output: {
-    path: path.resolve(__dirname, 'dist'),
+    path: path.resolve(__dirname, outputDirectory),
     filename: 'app.bundle.[hash].js',
     publicPath: '/',
   },
   devServer: {
-    contentBase: path.join(__dirname, 'dist'),
+    contentBase: path.join(__dirname, outputDirectory),
     port: 4000,
     open: true,
-    watchContentBase: true,
-    historyApiFallback: true,
     proxy: {
-      '/api/movies': {
-        target: 'http://localhost:3000',
-        secure: false,
-      },
+      'api': 'http://localhost:3000'
     },
   },
-  devtool: 'source-map',
+  devtool: 'inline-source-map',
   module: {
-    loaders: [
+    rules: [
       {test: /\.js$/, loader: 'babel-loader', exclude: /node_modules/},
       {test: /\.jsx$/, loader: 'babel-loader', exclude: /node_modules/},
       {
@@ -43,23 +40,12 @@ module.exports = {
         options: {limit: 25000}, // limit file size to 25KB
       },
       {
-        test: /\.css$/,
-        use: ExtractTextPlugin.extract({
-          fallback: 'style-loader', use: {
-            loader: 'css-loader?sourceMap',
-          },
-        }),
-      },
-      {
-        test: /\.less$/,
-        use: ExtractTextPlugin.extract({
-          fallback: 'style-loader',
-          use: [{
-            loader: 'css-loader?sourceMap',
-          }, {
-            loader: 'less-loader?sourceMap',
-          }],
-        }),
+        test: /\.(sa|le|c)ss$/,
+        use: [
+          devMode ? 'style-loader' : MiniCssExtractPlugin.loader,
+          'css-loader?sourceMap',
+          'less-loader?sourceMap',
+        ],
       },
       {
         test: /\.json$/,
@@ -68,7 +54,11 @@ module.exports = {
     ],
   },
   plugins: [
+    new CleanWebpackPlugin([outputDirectory]),
     HtmlWebpackPluginConfig,
-    new ExtractTextPlugin('app.bundle.[contenthash].css'),
+    new MiniCssExtractPlugin({
+      filename: devMode ? "[name].css" : "[name].[hash].css",
+      chunkFilename: devMode ? "[id].css" : "[id].[hash].css"
+    })
   ],
 };

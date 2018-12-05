@@ -7,7 +7,6 @@ import thunk from 'redux-thunk';
 import promise from 'redux-promise-middleware';
 import {reducers as moviesReducers} from './movies/Movies';
 import {Application} from './Application';
-import 'semantic-ui-css/semantic.min.css';
 
 const middleware = applyMiddleware(promise(), thunk, logger);
 
@@ -19,6 +18,11 @@ const store = createStore(
   combineReducers(appReducers),
   middleware
 );
+
+store.subscribe(() => {
+  console.log(store.getState());
+  console.log('&&&&&&&&&&&&&&&&&&&');
+});
 
 render(
   <Application store={store} />,
