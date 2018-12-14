@@ -1,50 +1,31 @@
-const express = require('express');
+import express from 'express';
+import bodyParser from 'body-parser';
+import cors from 'cors';
+import connectToDb from './database/connect';
+import morgan from 'morgan';
+import config from './config';
+import { loggers } from 'winston';
+import post from './routes/post.route';
+
+const ENV = process.env.NODE_ENV === 'development' ? 'development' : 'production';
+const PORT = process.env.PORT || config[ENV].serverPort;
+
+connectToDb(ENV);
+
 const app = express();
-var cors = require('cors')
-const port = process.env.PORT || 3000
-
-const SERVER_DIR = __dirname
-const CLIENT_DIR = `${SERVER_DIR}/../client`
-
 app.use(cors());
-app.get('/api/movies', (request, response) => {
-    const options = {
-        root: SERVER_DIR,
-        etag: false,
-        headers: {
-            'Content-Type': 'application/json',
-        }
-    }
-    response.sendFile(`/data/movies.json`, options)
-    // res.status(200).sendFile('./data/movies.json', options);
-})
+// app.set('env', ENV);
+app.use(bodyParser.urlencoded({extended: true}));  // may need it later
+// app.use(morgan('dev', {'stream': loggers.stream}));
 
-app.get('/', (request, response) => {
-    const options = {
-        root: CLIENT_DIR,
-        headers: {
-            'Cache-Control': 'max-age=1800',
-            'Access-Control-Allow-Origin': '*'
-        }
-    }
-    // response.sendFile('index.html', options)
-    response.send('Hello !@');
-})
+// Routes
+app.use('/post', post);
 
-app.get('/:filename(app.js|style.css)', (request, response) => {
-    const options = {
-        root: CLIENT_DIR,
-        headers: {
-            'Cache-Control': 'max-age=1800',
-            'Access-Control-Allow-Origin': '*'
-        }
-    }
-    response.sendFile(request.url, options)
-})
+// Index route
+app.get('/', (req, res) => {
+  res.send('Hello');
+});
 
-app.listen(port, (err) => {
-    if (err) {
-        return console.log(err)
-    }
-    console.log(`[ OK ] App is available on port: ${port}`)
-})
+app.listen(PORT, () => {
+  console.log('Server started on port ', PORT);
+});
