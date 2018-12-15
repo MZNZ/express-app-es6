@@ -3,8 +3,7 @@ import bodyParser from 'body-parser';
 import cors from 'cors';
 import connectToDb from './database/connect';
 import morgan from 'morgan';
-import config from './config';
-import { loggers } from 'winston';
+import config from './config/env';
 import post from './routes/post.route';
 
 const ENV = process.env.NODE_ENV === 'development' ? 'development' : 'production';

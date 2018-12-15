@@ -1,5 +1,4 @@
-import config from '../config';
-// import Logger from '../utils/logger';
+import config from '../config/env';
 import mongoose from 'mongoose';
 
 export default async function connectToDb(env) {
@@ -8,10 +7,9 @@ export default async function connectToDb(env) {
 
   try {
     await mongoose.connect(dbUrl, { useNewUrlParser: true });
-    // Logger.info();
+    console.log('Connecting Database...');
   }
   catch (err) {
-    console.log('COULD NOT CONNECT TO DATABASE!!!', err);
-    // loggers.error('Could not connect to MongoDB', err)
+    console.log('Connect to MongoDB failed', err)
   }
 }
