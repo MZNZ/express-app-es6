@@ -1,8 +1,8 @@
 import express from 'express';
 import bodyParser from 'body-parser';
 import cors from 'cors';
-import connectToDb from './database/connect';
 import morgan from 'morgan';
+import connectToDb from './database/connect';
 import config from './config/env';
 import post from './routes/post.route';
 
@@ -14,8 +14,8 @@ connectToDb(ENV);
 const app = express();
 app.use(cors());
 // app.set('env', ENV);
-app.use(bodyParser.urlencoded({extended: true}));  // may need it later
-// app.use(morgan('dev', {'stream': loggers.stream}));
+app.use(bodyParser.urlencoded({extended: true}));
+app.use(morgan(':method   :url    :status'));
 
 // Routes
 app.use('/post', post);
