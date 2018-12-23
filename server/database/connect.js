@@ -1,12 +1,13 @@
-import config from '../config/env';
 import mongoose from 'mongoose';
 
-export default async function connectToDb(env) {
+export default async function connectToDb(dbUrl) {
   mongoose.Promise = global.Promise;
-  const dbUrl = config[env].dbUrl;
 
   try {
-    await mongoose.connect(dbUrl, { useNewUrlParser: true });
+    await mongoose.connect(dbUrl, {
+      useNewUrlParser: true,
+      useCreateIndex: true,
+    });
     console.log('Connecting Database...');
   }
   catch (err) {
