@@ -4,7 +4,6 @@ import config from '../config/env';
 
 const logDir = 'log';
 if ( !fs.existsSync( logDir ) ) {
-  console.log('*******2');
   fs.mkdirSync( logDir );
 }
 
