@@ -11,6 +11,7 @@ const AuthController = {
   // User log in
   acquireOneByEmail: (req, res) => {
     const {email, password} = req.body;
+
     User.findOne({email: email})
     .exec()
     .then(result => {
@@ -28,7 +29,8 @@ const AuthController = {
             jwtSecret,
             {expiresIn: '2h'}
           );
-          res.status(200).send(token);
+          res.cookie('token', token, {httpOnly: true, secure: true});
+          res.status(200).end();
         }
       }
     })
@@ -61,7 +63,8 @@ const AuthController = {
             jwtSecret,
             {expiresIn: '2h'}
           );
-          res.status(201).send(token);
+          res.cookie('token', token, {httpOnly: true, secure: true});
+          res.status(201).end();
         });
       } else {
         res.status(409).send({

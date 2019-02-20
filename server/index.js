@@ -1,6 +1,7 @@
 import express from 'express';
 import bodyParser from 'body-parser';
 import cors from 'cors';
+import cookieParser from 'cookie-parser';
 import morgan from 'morgan';
 import connectToDb from './database/connect';
 import config from './config/env';
@@ -16,8 +17,14 @@ const {dbUrl, serverPort, bypassroutes, jwtSecret} = envConfig;
 connectToDb(dbUrl);
 
 const app = express();
-app.use(cors());
-app.use(bodyParser.urlencoded({extended: false}));  // for content type 'application/x-www-form-urlencoded'
+app.use(cors({origin: 'http://localhost:3000'}));
+app.use((req, res, next) => {
+  res.header('Access-Control-Allow-Credentials', true);
+  next();
+});
+app.use(cookieParser());
+app.use(bodyParser.json()); // parse content-type of 'application/json'
+app.use(bodyParser.urlencoded({extended: false}));  // parse content-type of 'application/x-www-form-urlencoded'
 app.use(morgan(':method   :url    :status'));
 
 app.use('/', verifyToken(bypassroutes, jwtSecret));
