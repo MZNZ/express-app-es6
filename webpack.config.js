@@ -19,10 +19,10 @@ module.exports = {
   },
   devServer: {
     contentBase: path.join(__dirname, outputDirectory),
-    port: 4000,
+    port: 3000,
     open: true,
     proxy: {
-      'api': 'http://localhost:3000'
+      '/': {target: 'http://localhost:4000'},
     },
   },
   devtool: 'inline-source-map',
@@ -57,7 +57,7 @@ module.exports = {
     new CleanWebpackPlugin([outputDirectory]),
     HtmlWebpackPluginConfig,
     new MiniCssExtractPlugin({
-      filename: devMode ? "[name].css" : "[name].[hash].css",
+      filename: devMode ? "[nam].css" : "[name].[hash].css",
       chunkFilename: devMode ? "[id].css" : "[id].[hash].css"
     })
   ],
