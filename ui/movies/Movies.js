@@ -2,8 +2,8 @@ import {connect} from 'react-redux';
 import * as reducers from './MoviesReducers';
 import * as actions from './MoviesActions';
 import MoviesApp from './MoviesApp';
-import {Search} from './widget/Widget';
-import Pagination from './widget/Pagination';
+import {Search} from '../widget/Widget';
+import Pagination from '../widget/Pagination';
 
 /**
  * Map properties to calendar app component

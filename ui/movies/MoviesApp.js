@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {DivTable} from  './widget/Widget';
+import {DivTable} from  '../widget/Widget';
 
 class MoviesApp extends React.Component{
   constructor(props) {
