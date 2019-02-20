@@ -3,6 +3,7 @@ import {Provider} from 'react-redux';
 import PropTypes from 'prop-types';
 import {BrowserRouter, Route} from 'react-router-dom';
 import MoviesPage from './MoviesPage';
+import LoginPage from './LoginPage';
 import './Application.less';
 
 /**
@@ -18,7 +19,7 @@ export const Application = ({store}) => {
     <Provider store={store}>
       <BrowserRouter>
         <div>
-          <Route path="/" component={MoviesPage} />
+          <Route path="/" component={LoginPage} exact/>
         </div>
       </BrowserRouter>
     </Provider>
