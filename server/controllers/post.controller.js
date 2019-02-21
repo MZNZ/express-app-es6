@@ -76,7 +76,6 @@ const PostController = {
       }
     })
     .catch(err => {
-      console.log('Update Post Error', err)
       res.status(500).send({err});
     });
   },
@@ -94,7 +93,6 @@ const PostController = {
       }
     })
     .catch(err => {
-      console.log('Delete Post Error', err)
       res.status(500).send({err});
     });
   }

@@ -18,10 +18,6 @@ connectToDb(dbUrl);
 
 const app = express();
 app.use(cors({origin: 'http://localhost:3000'}));
-app.use((req, res, next) => {
-  res.header('Access-Control-Allow-Credentials', true);
-  next();
-});
 app.use(cookieParser());
 app.use(bodyParser.json()); // parse content-type of 'application/json'
 app.use(bodyParser.urlencoded({extended: false}));  // parse content-type of 'application/x-www-form-urlencoded'

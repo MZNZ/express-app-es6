@@ -10,18 +10,19 @@ const verifyToken = (bypassAuthRoutes, jwtSecret) => {
     if (isBypassRoute) {
       next();
     } else {
-      const token = req.headers.authorization;
+      const token = req.cookies.token;
+
       if (token) {
         jwt.verify(token, jwtSecret, (err, decoded) => {
           if (err) {
-            return res.status(401).send('Not authenticated');
+            return res.status(401).send('Not authenticated, invalid token.');
           } else {
             req.decoded = decoded;
             next();
           }
         });
       } else {
-        return res.status(403).send('No token is received');
+        return res.status(403).send('No token is provided');
       }
     }
   };

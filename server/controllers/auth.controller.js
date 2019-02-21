@@ -29,7 +29,9 @@ const AuthController = {
             jwtSecret,
             {expiresIn: '2h'}
           );
-          res.cookie('token', token, {httpOnly: true, secure: true});
+          // Cookie options: (Should add to env.js)
+          // - secure: ture if https, do not set if localhost
+          res.cookie('token', token, {maxAge: 900000, httpOnly: true });
           res.status(200).end();
         }
       }
