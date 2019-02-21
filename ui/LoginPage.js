@@ -8,12 +8,10 @@ import {
  *
  * @return {Dom} login page dom element
  */
-const LoginPage = () => {
-  return (
-    <div className="login-page">
-      <LoginAppContainer />
-    </div>
-  );
-};
+const LoginPage = () => (
+  <div className="login-page">
+    <LoginAppContainer />
+  </div>
+);
 
 export default LoginPage;

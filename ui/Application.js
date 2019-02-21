@@ -1,9 +1,10 @@
 import React from 'react';
 import {Provider} from 'react-redux';
 import PropTypes from 'prop-types';
-import {BrowserRouter, Route} from 'react-router-dom';
+import {Route, HashRouter} from 'react-router-dom';
 import MoviesPage from './MoviesPage';
 import LoginPage from './LoginPage';
+import PostsPage from './PostsPage';
 import './Application.less';
 
 /**
@@ -17,11 +18,12 @@ import './Application.less';
 export const Application = ({store}) => {
   return (
     <Provider store={store}>
-      <BrowserRouter>
+      <HashRouter>
         <div>
           <Route path="/" component={LoginPage} exact/>
+          <Route path="/posts" component={PostsPage} />
         </div>
-      </BrowserRouter>
+      </HashRouter>
     </Provider>
   );
 };

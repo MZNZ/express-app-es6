@@ -24,7 +24,7 @@ export const mapStateToPropsLogin = (state) => {
  */
 export const mapDispatchToPropsLogin = (dispatch) => {
   return {
-    onLoginSubmit: ({email, password}) => {
+    onLoginSubmit: (email, password) => {
       const as = async () => {
         const authResponse = await fetch('/auth/login', {
           method: 'POST',

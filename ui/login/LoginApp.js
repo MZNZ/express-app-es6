@@ -1,4 +1,5 @@
 import React, {Fragment} from 'react';
+import { Redirect } from 'react-router'
 import PropTypes from 'prop-types';
 
 class LoginApp extends React.PureComponent {
@@ -19,7 +20,7 @@ class LoginApp extends React.PureComponent {
   handleSubmit(event) {
     event.preventDefault();
     const {email, password} = this.state;
-    this.props.onLoginSubmit({email, password});
+    this.props.onLoginSubmit(email, password);
   }
 
   render() {
@@ -27,7 +28,10 @@ class LoginApp extends React.PureComponent {
     const {email, password} = this.state;
     return (
       <Fragment>
-        <form onSubmit={this.handleSubmit}>
+        <form
+          // onSubmit={() => this.props.onLoginSubmit(email, password, history)}
+          onSubmit={this.handleSubmit}
+        >
           <input
             type="text"
             name="email"
@@ -44,6 +48,7 @@ class LoginApp extends React.PureComponent {
           <br></br>
           <input type="submit" value="Submit"/>
         </form>
+        {httpStatusCode === 200 && <Redirect push to="/posts"/>}
       </Fragment>
     );
   }

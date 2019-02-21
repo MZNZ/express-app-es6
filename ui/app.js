@@ -7,6 +7,7 @@ import thunk from 'redux-thunk';
 import promise from 'redux-promise-middleware';
 import {reducers as moviesReducers} from './movies/Movies';
 import {reducers as loginReducers} from './login/Login';
+import {reducers as postsReducers} from './posts/Posts';
 import {Application} from './Application';
 
 const middleware = applyMiddleware(promise(), thunk, logger);
@@ -14,6 +15,7 @@ const middleware = applyMiddleware(promise(), thunk, logger);
 const appReducers = {
   ...moviesReducers,
   ...loginReducers,
+  ...postsReducers,
 };
 
 const store = createStore(
@@ -23,7 +25,6 @@ const store = createStore(
 
 store.subscribe(() => {
   console.log(store.getState());
-  console.log('&&&&&&&&&&&&&&&&&&&');
 });
 
 render(
