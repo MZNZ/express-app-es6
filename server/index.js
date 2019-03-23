@@ -1,8 +1,5 @@
-// TODO:
-// Find solution for CSRF attacks
 import express from 'express';
 import bodyParser from 'body-parser';
-import cors from 'cors';
 import cookieParser from 'cookie-parser';
 import morgan from 'morgan';
 import connectToDb from './database/connect';
@@ -19,7 +16,6 @@ const {dbUrl, serverPort, bypassroutes, jwtSecret} = envConfig;
 connectToDb(dbUrl);
 
 const app = express();
-// app.use(cors({origin: 'http://localhost:3000', credentials: true}));
 app.use(cookieParser());
 app.use(bodyParser.json()); // parse content-type of 'application/json'
 app.use(bodyParser.urlencoded({extended: false}));  // parse content-type of 'application/x-www-form-urlencoded'
